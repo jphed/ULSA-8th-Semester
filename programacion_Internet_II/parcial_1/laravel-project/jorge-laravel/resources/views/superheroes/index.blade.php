@@ -1,46 +1,33 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Superheroes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Base de Datos Superhéroes</title>
 </head>
-<body>
-    <main style="max-width: 900px; margin: 40px auto; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, sans-serif; line-height: 1.5;">
-        <h1 style="margin: 0 0 12px;">Superheroes</h1>
-
-        <table style="width: 100%; border-collapse: collapse;">
-            <thead>
+<body class="container mt-5">
+    <h2 class="mb-4">Lista de Personajes</h2>
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>Nombre</th>
+                <th>Nombre Real</th>
+                <th>Género</th>
+                <th>Universo (Compañía)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($characters as $character)
                 <tr>
-                    <th style="text-align: left; padding: 10px 8px; border-bottom: 1px solid #ddd;">ID</th>
-                    <th style="text-align: left; padding: 10px 8px; border-bottom: 1px solid #ddd;">Nombre</th>
-                    <th style="text-align: left; padding: 10px 8px; border-bottom: 1px solid #ddd;">Nombre real</th>
-                    <th style="text-align: left; padding: 10px 8px; border-bottom: 1px solid #ddd;">Género</th>
-                    <th style="text-align: left; padding: 10px 8px; border-bottom: 1px solid #ddd;">Universo</th>
+                    <td>{{ $character->name }}</td>
+                    <td>{{ $character->real_name }}</td>
+                    <td>{{ $character->gender }}</td>
+                    <td>
+                        {{ $character->universe->universe }}
+                        ({{ $character->universe->company }})
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                @forelse ($characters as $character)
-                    <tr>
-                        <td style="padding: 10px 8px; border-bottom: 1px solid #f0f0f0;">{{ $character->id_character }}</td>
-                        <td style="padding: 10px 8px; border-bottom: 1px solid #f0f0f0;">{{ $character->name }}</td>
-                        <td style="padding: 10px 8px; border-bottom: 1px solid #f0f0f0;">{{ $character->real_name }}</td>
-                        <td style="padding: 10px 8px; border-bottom: 1px solid #f0f0f0;">{{ $character->gender }}</td>
-                        <td style="padding: 10px 8px; border-bottom: 1px solid #f0f0f0;">
-                            {{ $character->universe?->universe ?? 'N/A' }}
-                        </td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="5" style="padding: 12px 8px;">No hay personajes en la tabla <code>characters</code>.</td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
-
-        <div style="margin-top: 18px;">
-            <a href="{{ url('/') }}">Volver a inicio</a>
-        </div>
-    </main>
+            @endforeach
+        </tbody>
+    </table>
 </body>
 </html>

@@ -27,6 +27,6 @@ class Universe extends Model
 
     public function characters()
     {
-        return $this->hasMany(Character::class, 'id_universe', 'id_universe');
+        return $this->hasMany(Character::class, 'id_universe');
     }
 }
